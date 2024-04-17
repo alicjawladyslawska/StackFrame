@@ -1,0 +1,363 @@
+StackFrame Program Output
+
+
+Program-generated output:
+
+aw356@pc8-006-l:.../Documents/cs2002/W08-C-Architecture/src $ ./TryStackFrames
+executeFactorial: basePointer = 7ffe34877400
+executeFactorial: returnAddress = 401154
+executeFactorial: about to call factorial which should print the stack
+
+-------------
+00007ffe34877300: 00007ffe34877320 --  20 73 87 34 fe 7f 00 00 
+00007ffe34877308: 000000000040117c --  7c 11 40 00 00 00 00 00 
+00007ffe34877310: 00000000000002d0 --  d0 02 00 00 00 00 00 00 
+00007ffe34877318: 0000000000000001 --  01 00 00 00 00 00 00 00 
+-------------
+00007ffe34877320: 00007ffe34877340 --  40 73 87 34 fe 7f 00 00 
+00007ffe34877328: 000000000040119e --  9e 11 40 00 00 00 00 00 
+00007ffe34877330: 0000000000000168 --  68 01 00 00 00 00 00 00 
+00007ffe34877338: 0000000000000002 --  02 00 00 00 00 00 00 00 
+-------------
+00007ffe34877340: 00007ffe34877360 --  60 73 87 34 fe 7f 00 00 
+00007ffe34877348: 000000000040119e --  9e 11 40 00 00 00 00 00 
+00007ffe34877350: 0000000000000078 --  78 00 00 00 00 00 00 00 
+00007ffe34877358: 0000000000000003 --  03 00 00 00 00 00 00 00 
+-------------
+00007ffe34877360: 00007ffe34877380 --  80 73 87 34 fe 7f 00 00 
+00007ffe34877368: 000000000040119e --  9e 11 40 00 00 00 00 00 
+00007ffe34877370: 000000000000001e --  1e 00 00 00 00 00 00 00 
+00007ffe34877378: 0000000000000004 --  04 00 00 00 00 00 00 00 
+-------------
+00007ffe34877380: 00007ffe348773a0 --  a0 73 87 34 fe 7f 00 00 
+00007ffe34877388: 000000000040119e --  9e 11 40 00 00 00 00 00 
+00007ffe34877390: 0000000000000006 --  06 00 00 00 00 00 00 00 
+00007ffe34877398: 0000000000000005 --  05 00 00 00 00 00 00 00 
+-------------
+00007ffe348773a0: 00007ffe348773c0 --  c0 73 87 34 fe 7f 00 00 
+00007ffe348773a8: 000000000040119e --  9e 11 40 00 00 00 00 00 
+00007ffe348773b0: 0000000000000001 --  01 00 00 00 00 00 00 00 
+00007ffe348773b8: 0000000000000006 --  06 00 00 00 00 00 00 00 
+-------------
+00007ffe348773c0: 00007ffe34877400 --  00 74 87 34 fe 7f 00 00 
+00007ffe348773c8: 0000000000401225 --  25 12 40 00 00 00 00 00 
+00007ffe348773d0: 0000000000000040 --  40 00 00 00 00 00 00 00 
+00007ffe348773d8: 0000000000000001 --  01 00 00 00 00 00 00 00 
+00007ffe348773e0: 0000000000000006 --  06 00 00 00 00 00 00 00 
+00007ffe348773e8: 0000000000000000 --  00 00 00 00 00 00 00 00 
+00007ffe348773f0: 0000000000401154 --  54 11 40 00 00 00 00 00 
+00007ffe348773f8: 00007ffe34877400 --  00 74 87 34 fe 7f 00 00 
+executeFactorial: factorial(6) = 720
+
+
+
+
+** objdump output: 
+
+
+TryStackFrames:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000401000 <_init>:
+  401000:       f3 0f 1e fa             endbr64 
+  401004:       48 83 ec 08             sub    $0x8,%rsp
+  401008:       48 8b 05 e1 2f 00 00    mov    0x2fe1(%rip),%rax        # 403ff0 <__gmon_start__>
+  40100f:       48 85 c0                test   %rax,%rax
+  401012:       74 02                   je     401016 <_init+0x16>
+  401014:       ff d0                   callq  *%rax
+  401016:       48 83 c4 08             add    $0x8,%rsp
+  40101a:       c3                      retq   
+
+Disassembly of section .plt:
+
+0000000000401020 <.plt>:
+  401020:       ff 35 e2 2f 00 00       pushq  0x2fe2(%rip)        # 404008 <_GLOBAL_OFFSET_TABLE_+0x8>
+  401026:       ff 25 e4 2f 00 00       jmpq   *0x2fe4(%rip)        # 404010 <_GLOBAL_OFFSET_TABLE_+0x10>
+  40102c:       0f 1f 40 00             nopl   0x0(%rax)
+
+0000000000401030 <putchar@plt>:
+  401030:       ff 25 e2 2f 00 00       jmpq   *0x2fe2(%rip)        # 404018 <putchar@GLIBC_2.2.5>
+  401036:       68 00 00 00 00          pushq  $0x0
+  40103b:       e9 e0 ff ff ff          jmpq   401020 <.plt>
+
+0000000000401040 <puts@plt>:
+  401040:       ff 25 da 2f 00 00       jmpq   *0x2fda(%rip)        # 404020 <puts@GLIBC_2.2.5>
+  401046:       68 01 00 00 00          pushq  $0x1
+  40104b:       e9 d0 ff ff ff          jmpq   401020 <.plt>
+
+0000000000401050 <printf@plt>:
+  401050:       ff 25 d2 2f 00 00       jmpq   *0x2fd2(%rip)        # 404028 <printf@GLIBC_2.2.5>
+  401056:       68 02 00 00 00          pushq  $0x2
+  40105b:       e9 c0 ff ff ff          jmpq   401020 <.plt>
+
+Disassembly of section .text:
+
+0000000000401060 <_start>:
+  401060:       f3 0f 1e fa             endbr64 
+  401064:       31 ed                   xor    %ebp,%ebp
+  401066:       49 89 d1                mov    %rdx,%r9
+  401069:       5e                      pop    %rsi
+  40106a:       48 89 e2                mov    %rsp,%rdx
+  40106d:       48 83 e4 f0             and    $0xfffffffffffffff0,%rsp
+  401071:       50                      push   %rax
+  401072:       54                      push   %rsp
+  401073:       45 31 c0                xor    %r8d,%r8d
+  401076:       31 c9                   xor    %ecx,%ecx
+  401078:       48 c7 c7 46 11 40 00    mov    $0x401146,%rdi
+  40107f:       ff 15 5b 2f 00 00       callq  *0x2f5b(%rip)        # 403fe0 <__libc_start_main@GLIBC_2.34>
+  401085:       f4                      hlt    
+
+0000000000401086 <.annobin_abi_note.c>:
+  401086:       66 2e 0f 1f 84 00 00    nopw   %cs:0x0(%rax,%rax,1)
+  40108d:       00 00 00 
+
+0000000000401090 <_dl_relocate_static_pie>:
+  401090:       f3 0f 1e fa             endbr64 
+  401094:       c3                      retq   
+
+0000000000401095 <.annobin__dl_relocate_static_pie.end>:
+  401095:       66 2e 0f 1f 84 00 00    nopw   %cs:0x0(%rax,%rax,1)
+  40109c:       00 00 00 
+  40109f:       90                      nop
+
+00000000004010a0 <deregister_tm_clones>:
+  4010a0:       48 8d 3d 91 2f 00 00    lea    0x2f91(%rip),%rdi        # 404038 <__TMC_END__>
+  4010a7:       48 8d 05 8a 2f 00 00    lea    0x2f8a(%rip),%rax        # 404038 <__TMC_END__>
+  4010ae:       48 39 f8                cmp    %rdi,%rax
+  4010b1:       74 15                   je     4010c8 <deregister_tm_clones+0x28>
+  4010b3:       48 8b 05 2e 2f 00 00    mov    0x2f2e(%rip),%rax        # 403fe8 <_ITM_deregisterTMCloneTable>
+  4010ba:       48 85 c0                test   %rax,%rax
+  4010bd:       74 09                   je     4010c8 <deregister_tm_clones+0x28>
+  4010bf:       ff e0                   jmpq   *%rax
+  4010c1:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+  4010c8:       c3                      retq   
+  4010c9:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+
+00000000004010d0 <register_tm_clones>:
+  4010d0:       48 8d 3d 61 2f 00 00    lea    0x2f61(%rip),%rdi        # 404038 <__TMC_END__>
+  4010d7:       48 8d 35 5a 2f 00 00    lea    0x2f5a(%rip),%rsi        # 404038 <__TMC_END__>
+  4010de:       48 29 fe                sub    %rdi,%rsi
+  4010e1:       48 89 f0                mov    %rsi,%rax
+  4010e4:       48 c1 ee 3f             shr    $0x3f,%rsi
+  4010e8:       48 c1 f8 03             sar    $0x3,%rax
+  4010ec:       48 01 c6                add    %rax,%rsi
+  4010ef:       48 d1 fe                sar    %rsi
+  4010f2:       74 14                   je     401108 <register_tm_clones+0x38>
+  4010f4:       48 8b 05 fd 2e 00 00    mov    0x2efd(%rip),%rax        # 403ff8 <_ITM_registerTMCloneTable>
+  4010fb:       48 85 c0                test   %rax,%rax
+  4010fe:       74 08                   je     401108 <register_tm_clones+0x38>
+  401100:       ff e0                   jmpq   *%rax
+  401102:       66 0f 1f 44 00 00       nopw   0x0(%rax,%rax,1)
+  401108:       c3                      retq   
+  401109:       0f 1f 80 00 00 00 00    nopl   0x0(%rax)
+
+0000000000401110 <__do_global_dtors_aux>:
+  401110:       f3 0f 1e fa             endbr64 
+  401114:       80 3d 19 2f 00 00 00    cmpb   $0x0,0x2f19(%rip)        # 404034 <completed.0>
+  40111b:       75 13                   jne    401130 <__do_global_dtors_aux+0x20>
+  40111d:       55                      push   %rbp
+  40111e:       48 89 e5                mov    %rsp,%rbp
+  401121:       e8 7a ff ff ff          callq  4010a0 <deregister_tm_clones>
+  401126:       c6 05 07 2f 00 00 01    movb   $0x1,0x2f07(%rip)        # 404034 <completed.0>
+  40112d:       5d                      pop    %rbp
+  40112e:       c3                      retq   
+  40112f:       90                      nop
+  401130:       c3                      retq   
+  401131:       66 66 2e 0f 1f 84 00    data16 nopw %cs:0x0(%rax,%rax,1)
+  401138:       00 00 00 00 
+  40113c:       0f 1f 40 00             nopl   0x0(%rax)
+
+0000000000401140 <frame_dummy>:
+  401140:       f3 0f 1e fa             endbr64 
+  401144:       eb 8a                   jmp    4010d0 <register_tm_clones>
+
+0000000000401146 <main>:s
+  401146:       55                      push   %rbp
+  401147:       48 89 e5                mov    %rsp,%rbp
+  40114a:       b8 00 00 00 00          mov    $0x0,%eax
+  40114f:       e8 4c 00 00 00          callq  4011a0 <executeFactorial>
+  401154:       b8 00 00 00 00          mov    $0x0,%eax
+  401159:       5d                      pop    %rbp
+  40115a:       c3                      retq   
+
+000000000040115b <factorial>:
+  40115b:       55                      push   %rbp
+  40115c:       48 89 e5                mov    %rsp,%rbp
+  40115f:       48 83 ec 10             sub    $0x10,%rsp
+  401163:       48 89 7d f8             mov    %rdi,-0x8(%rbp)
+  401167:       48 89 75 f0             mov    %rsi,-0x10(%rbp)
+  40116b:       48 83 7d f8 01          cmpq   $0x1,-0x8(%rbp)
+  401170:       77 10                   ja     401182 <factorial+0x27>
+  401172:       bf 07 00 00 00          mov    $0x7,%edi
+  401177:       e8 ab 01 00 00          callq  401327 <printStackFrames>
+  40117c:       48 8b 45 f0             mov    -0x10(%rbp),%rax
+  401180:       eb 1c                   jmp    40119e <factorial+0x43>
+  401182:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  401186:       48 0f af 45 f0          imul   -0x10(%rbp),%rax
+  40118b:       48 8b 55 f8             mov    -0x8(%rbp),%rdx
+  40118f:       48 83 ea 01             sub    $0x1,%rdx
+  401193:       48 89 c6                mov    %rax,%rsi
+  401196:       48 89 d7                mov    %rdx,%rdi
+  401199:       e8 bd ff ff ff          callq  40115b <factorial>
+  40119e:       c9                      leaveq 
+  40119f:       c3                      retq   
+
+00000000004011a0 <executeFactorial>:
+  4011a0:       55                      push   %rbp
+  4011a1:       48 89 e5                mov    %rsp,%rbp
+  4011a4:       48 83 ec 30             sub    $0x30,%rsp
+  4011a8:       b8 00 00 00 00          mov    $0x0,%eax
+  4011ad:       e8 94 00 00 00          callq  401246 <getBasePointer>
+  4011b2:       48 89 45 f8             mov    %rax,-0x8(%rbp)
+  4011b6:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  4011ba:       48 89 c6                mov    %rax,%rsi
+  4011bd:       bf 10 20 40 00          mov    $0x402010,%edi
+  4011c2:       b8 00 00 00 00          mov    $0x0,%eax
+  4011c7:       e8 84 fe ff ff          callq  401050 <printf@plt>
+  4011cc:       b8 00 00 00 00          mov    $0x0,%eax
+  4011d1:       e8 82 00 00 00          callq  401258 <getReturnAddress>
+  4011d6:       48 89 45 f0             mov    %rax,-0x10(%rbp)
+  4011da:       48 8b 45 f0             mov    -0x10(%rbp),%rax
+  4011de:       48 89 c6                mov    %rax,%rsi
+  4011e1:       bf 38 20 40 00          mov    $0x402038,%edi
+  4011e6:       b8 00 00 00 00          mov    $0x0,%eax
+  4011eb:       e8 60 fe ff ff          callq  401050 <printf@plt>
+  4011f0:       bf 60 20 40 00          mov    $0x402060,%edi
+  4011f5:       e8 46 fe ff ff          callq  401040 <puts@plt>
+  4011fa:       48 c7 45 e8 00 00 00    movq   $0x0,-0x18(%rbp)
+  401201:       00 
+  401202:       48 c7 45 e0 06 00 00    movq   $0x6,-0x20(%rbp)
+  401209:       00 
+  40120a:       48 c7 45 d8 01 00 00    movq   $0x1,-0x28(%rbp)
+  401211:       00 
+  401212:       48 8b 55 d8             mov    -0x28(%rbp),%rdx
+  401216:       48 8b 45 e0             mov    -0x20(%rbp),%rax
+  40121a:       48 89 d6                mov    %rdx,%rsi
+  40121d:       48 89 c7                mov    %rax,%rdi
+  401220:       e8 36 ff ff ff          callq  40115b <factorial>
+  401225:       48 89 45 e8             mov    %rax,-0x18(%rbp)
+  401229:       48 8b 55 e8             mov    -0x18(%rbp),%rdx
+  40122d:       48 8b 45 e0             mov    -0x20(%rbp),%rax
+  401231:       48 89 c6                mov    %rax,%rsi
+  401234:       bf a8 20 40 00          mov    $0x4020a8,%edi
+  401239:       b8 00 00 00 00          mov    $0x0,%eax
+  40123e:       e8 0d fe ff ff          callq  401050 <printf@plt>
+  401243:       90                      nop
+  401244:       c9                      leaveq 
+  401245:       c3                      retq   
+
+0000000000401246 <getBasePointer>:
+  401246:       55                      push   %rbp
+  401247:       48 89 e5                mov    %rsp,%rbp
+  40124a:       48 8b 45 00             mov    0x0(%rbp),%rax
+  40124e:       48 89 45 f8             mov    %rax,-0x8(%rbp)
+  401252:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  401256:       5d                      pop    %rbp
+  401257:       c3                      retq   
+
+0000000000401258 <getReturnAddress>:
+  401258:       55                      push   %rbp
+  401259:       48 89 e5                mov    %rsp,%rbp
+  40125c:       48 89 e8                mov    %rbp,%rax
+  40125f:       48 8b 00                mov    (%rax),%rax
+  401262:       48 8b 50 08             mov    0x8(%rax),%rdx
+  401266:       48 89 55 f8             mov    %rdx,-0x8(%rbp)
+  40126a:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  40126e:       5d                      pop    %rbp
+  40126f:       c3                      retq   
+
+0000000000401270 <printStackFrameData>:
+  401270:       55                      push   %rbp
+  401271:       48 89 e5                mov    %rsp,%rbp
+  401274:       48 83 ec 30             sub    $0x30,%rsp
+  401278:       48 89 7d d8             mov    %rdi,-0x28(%rbp)
+  40127c:       48 89 75 d0             mov    %rsi,-0x30(%rbp)
+  401280:       48 8b 45 d8             mov    -0x28(%rbp),%rax
+  401284:       48 89 45 f8             mov    %rax,-0x8(%rbp)
+  401288:       48 8b 45 d0             mov    -0x30(%rbp),%rax
+  40128c:       48 89 45 e8             mov    %rax,-0x18(%rbp)
+  401290:       e9 80 00 00 00          jmpq   401315 <printStackFrameData+0xa5>
+  401295:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  401299:       48 89 c6                mov    %rax,%rsi
+  40129c:       bf d0 20 40 00          mov    $0x4020d0,%edi
+  4012a1:       b8 00 00 00 00          mov    $0x0,%eax
+  4012a6:       e8 a5 fd ff ff          callq  401050 <printf@plt>
+  4012ab:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  4012af:       48 8b 00                mov    (%rax),%rax
+  4012b2:       48 89 45 e0             mov    %rax,-0x20(%rbp)
+  4012b6:       48 8b 45 e0             mov    -0x20(%rbp),%rax
+  4012ba:       48 89 c6                mov    %rax,%rsi
+  4012bd:       bf d9 20 40 00          mov    $0x4020d9,%edi
+  4012c2:       b8 00 00 00 00          mov    $0x0,%eax
+  4012c7:       e8 84 fd ff ff          callq  401050 <printf@plt>
+  4012cc:       c7 45 f4 00 00 00 00    movl   $0x0,-0xc(%rbp)
+  4012d3:       eb 2b                   jmp    401300 <printStackFrameData+0x90>
+  4012d5:       8b 45 f4                mov    -0xc(%rbp),%eax
+  4012d8:       c1 e0 03                shl    $0x3,%eax
+  4012db:       48 8b 55 e0             mov    -0x20(%rbp),%rdx
+  4012df:       89 c1                   mov    %eax,%ecx
+  4012e1:       48 d3 ea                shr    %cl,%rdx
+  4012e4:       48 89 d0                mov    %rdx,%rax
+  4012e7:       0f b6 c0                movzbl %al,%eax
+  4012ea:       48 89 c6                mov    %rax,%rsi
+  4012ed:       bf e5 20 40 00          mov    $0x4020e5,%edi
+  4012f2:       b8 00 00 00 00          mov    $0x0,%eax
+  4012f7:       e8 54 fd ff ff          callq  401050 <printf@plt>
+  4012fc:       83 45 f4 01             addl   $0x1,-0xc(%rbp)
+  401300:       83 7d f4 07             cmpl   $0x7,-0xc(%rbp)
+  401304:       7e cf                   jle    4012d5 <printStackFrameData+0x65>
+  401306:       bf 0a 00 00 00          mov    $0xa,%edi
+  40130b:       e8 20 fd ff ff          callq  401030 <putchar@plt>
+  401310:       48 83 45 f8 08          addq   $0x8,-0x8(%rbp)
+  401315:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  401319:       48 3b 45 e8             cmp    -0x18(%rbp),%rax
+  40131d:       0f 82 72 ff ff ff       jb     401295 <printStackFrameData+0x25>
+  401323:       90                      nop
+  401324:       90                      nop
+  401325:       c9                      leaveq 
+  401326:       c3                      retq   
+
+0000000000401327 <printStackFrames>:
+  401327:       55                      push   %rbp
+  401328:       48 89 e5                mov    %rsp,%rbp
+  40132b:       48 83 ec 30             sub    $0x30,%rsp
+  40132f:       89 7d dc                mov    %edi,-0x24(%rbp)
+  401332:       b8 00 00 00 00          mov    $0x0,%eax
+  401337:       e8 0a ff ff ff          callq  401246 <getBasePointer>
+  40133c:       48 89 45 f8             mov    %rax,-0x8(%rbp)
+  401340:       c7 45 f4 00 00 00 00    movl   $0x0,-0xc(%rbp)
+  401347:       eb 3b                   jmp    401384 <printStackFrames+0x5d>
+  401349:       bf ec 20 40 00          mov    $0x4020ec,%edi
+  40134e:       e8 ed fc ff ff          callq  401040 <puts@plt>
+  401353:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  401357:       48 8b 00                mov    (%rax),%rax
+  40135a:       48 89 45 e8             mov    %rax,-0x18(%rbp)
+  40135e:       48 83 7d e8 00          cmpq   $0x0,-0x18(%rbp)
+  401363:       74 29                   je     40138e <printStackFrames+0x67>
+  401365:       48 8b 55 e8             mov    -0x18(%rbp),%rdx
+  401369:       48 8b 45 f8             mov    -0x8(%rbp),%rax
+  40136d:       48 89 d6                mov    %rdx,%rsi
+  401370:       48 89 c7                mov    %rax,%rdi
+  401373:       e8 f8 fe ff ff          callq  401270 <printStackFrameData>
+  401378:       48 8b 45 e8             mov    -0x18(%rbp),%rax
+  40137c:       48 89 45 f8             mov    %rax,-0x8(%rbp)
+  401380:       83 45 f4 01             addl   $0x1,-0xc(%rbp)
+  401384:       8b 45 f4                mov    -0xc(%rbp),%eax
+  401387:       3b 45 dc                cmp    -0x24(%rbp),%eax
+  40138a:       7c bd                   jl     401349 <printStackFrames+0x22>
+  40138c:       eb 01                   jmp    40138f <printStackFrames+0x68>
+  40138e:       90                      nop
+  40138f:       90                      nop
+  401390:       c9                      leaveq 
+  401391:       c3                      retq   
+
+Disassembly of section .fini:
+
+0000000000401394 <_fini>:
+  401394:       f3 0f 1e fa             endbr64 
+  401398:       48 83 ec 08             sub    $0x8,%rsp
+  40139c:       48 83 c4 08             add    $0x8,%rsp
+  4013a0:       c3                      retq   
+~
